@@ -3,7 +3,7 @@ import styles from '../styles/Product.module.css';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../utils/routes';
 import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../../store/user/userSlice';
+import { addItemToCart, addItemToFavorites } from '../../store/user/userSlice';
 
 const colors = [
   'Red',
@@ -56,6 +56,10 @@ const Product = (item) => {
     }
 
     dispatch(addItemToCart(item));
+  };
+
+  const addToFavourite = () => {
+    dispatch(addItemToFavorites(item));
   };
 
   return (
@@ -130,7 +134,9 @@ const Product = (item) => {
           >
             Add to cart
           </button>
-          <button className={styles.favourite}>Add to favourite</button>
+          <button className={styles.favourite} onClick={addToFavourite}>
+            Add to favourite
+          </button>
         </div>
 
         <div className={styles.bottom}>

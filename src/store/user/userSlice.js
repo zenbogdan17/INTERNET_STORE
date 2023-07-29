@@ -64,6 +64,7 @@ export const updateUser = createAsyncThunk(
 const initialState = {
   currentUser: null,
   cart: [],
+  favorites: [],
   isLoading: false,
   formType: 'signup',
   showForm: false,
@@ -91,6 +92,21 @@ const userSlice = createSlice({
 
       state.cart = newCart;
     },
+    addItemToFavorites: (state, { payload }) => {
+      let newFavorites = [...state.favorites];
+
+      const found = state.favorites.find(({ id }) => id === payload.id);
+
+      console.log(found);
+
+      if (found) {
+        state.textInAler = 'The product has already been added';
+      } else {
+        newFavorites.push({ ...payload });
+        state.textInAler = 'The product added';
+        state.favorites = newFavorites;
+      }
+    },
     removeItemFromCart: (state, { payload }) => {
       state.cart = state.cart.filter(({ id }) => id !== payload);
     },
@@ -100,8 +116,8 @@ const userSlice = createSlice({
     changeTypeForm: (state, { payload }) => {
       state.formType = payload;
     },
-    addTextAlert: (state, { payload }) => {
-      state.textInAler = payload;
+    clearAler: (state) => {
+      state.textInAler = '';
     },
   },
   extraReducers: (builder) => {
@@ -135,10 +151,11 @@ const userSlice = createSlice({
 
 export const {
   addItemToCart,
+  addItemToFavorites,
   toggleForm,
   changeTypeForm,
   removeItemFromCart,
-  addTextAlert,
+  clearAler,
 } = userSlice.actions;
 
 export default userSlice.reducer;

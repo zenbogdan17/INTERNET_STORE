@@ -4,9 +4,11 @@ import styles from '../styles/Profile.module.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../store/user/userSlice';
+import Alert from '../Alert/Alert';
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const { textInAler } = useSelector(({ user }) => user);
 
   const { currentUser } = useSelector(({ user }) => user);
 
@@ -43,6 +45,7 @@ const Profile = () => {
         <span>You need to log in</span>
       ) : (
         <>
+          {textInAler && <Alert text={textInAler} />}
           <h2 className={styles.title}>Your Profile</h2>
           <p className={styles.subtitle}>You can update your data</p>
           <form className={styles.form} onSubmit={submitHandler}>

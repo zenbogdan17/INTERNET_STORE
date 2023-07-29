@@ -12,7 +12,8 @@
 .info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: flex-end;
   flex-grow: 1;
 }
 
@@ -21,6 +22,7 @@
   align-items: center;
   column-gap: 10px;
   cursor: pointer;
+  margin-right: 20px;
 }
 
 .avatar {
@@ -49,6 +51,7 @@
   column-gap: 16px;
   width: 300px;
   position: relative;
+  margin-right: 100px;
 }
 
 .icon {

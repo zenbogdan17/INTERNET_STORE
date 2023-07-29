@@ -60,14 +60,6 @@ const Header = () => {
         </Link>
       </div>
       <div className={styles.info}>
-        <div className={styles.user} onClick={handleClick}>
-          <div
-            className={styles.avatar}
-            style={{ backgroundImage: `url(${values.avatar})` }}
-          />
-          <div className={styles.username}></div>
-          {values.name}
-        </div>
         <form className={styles.form}>
           <div className={styles.icon}>
             <svg className="icon">
@@ -108,8 +100,18 @@ const Header = () => {
             </div>
           )}
         </form>
+
+        <div className={styles.user} onClick={handleClick}>
+          <div
+            className={styles.avatar}
+            style={{ backgroundImage: `url(${values.avatar})` }}
+          />
+          <div className={styles.username}></div>
+          {values.name}
+        </div>
+
         <div className={styles.account}>
-          <Link to={ROUTES.HOME} className={styles.favourites}>
+          <Link to={ROUTES.FAVOURITES} className={styles.favourites}>
             <svg className={styles['icon-fav']}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#heart`} />
             </svg>
