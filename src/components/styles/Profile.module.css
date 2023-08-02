@@ -23,6 +23,18 @@
   padding: 12px 24px;
 }
 
+.inputContainer {
+  display: flex;
+  margin-bottom: 10px;
+}
+.inputContainer label {
+  width: 20%;
+  align-self: center;
+}
 .group input {
-  width: 100%;
+  width: 80%;
+}
+
+.submit {
+  margin-top: 10px;
 }

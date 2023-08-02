@@ -106,15 +106,42 @@
   margin-top: 20px;
   display: flex;
   column-gap: 10px;
+  align-items: center;
 }
-
-.favourite {
+.actions svg {
+  width: 30px;
+  height: 30px;
+}
+/* .notFavourite {
   background: var(--dark-sea);
   border-radius: 6px;
 }
-
-.favourite:hover {
+.notFavourite:hover {
   background: #7a8690;
+} */
+
+/* .favourite {
+  background: var(--yellow);
+  border-radius: 6px;
+}
+.favourite:hover {
+  background: #5a6312;
+} */
+
+.icon-fav {
+  margin-left: 20px;
+  stroke: var(--grey);
+  fill: none;
+  cursor: pointer;
+}
+
+.icon-fav:hover {
+  stroke: var(--white);
+}
+
+.favourit {
+  stroke: var(--white);
+  fill: var(--white);
 }
 
 .bottom {

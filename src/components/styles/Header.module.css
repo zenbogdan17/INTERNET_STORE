@@ -86,7 +86,8 @@
 }
 
 .favourites {
-  cursor: pointer;
+  cursor: pointer; 
+  position: relative;
 }
 
 .account svg {

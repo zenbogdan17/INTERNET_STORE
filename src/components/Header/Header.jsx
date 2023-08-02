@@ -5,7 +5,7 @@ import { ROUTES } from '../../utils/routes';
 import logo from '../../images/logo.svg';
 import avatar from '../../images/avatar.png';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, toggleForm } from '../../store/user/userSlice';
+import { addTextInAlert, loginUser, toggleForm } from '../../store/user/userSlice';
 import { useGetProductsQuery } from '../../store/api/apiSlice';
 
 const Header = () => {
@@ -17,7 +17,7 @@ const Header = () => {
 
   const { data, isLoading } = useGetProductsQuery({ title: searchValue });
 
-  const { cart, currentUser } = useSelector(({ user }) => user);
+  const { cart, currentUser, favorites } = useSelector(({ user }) => user);
 
   useEffect(() => {
     if (localStorage.getItem('email') && localStorage.getItem('password')) {
@@ -43,6 +43,11 @@ const Header = () => {
     });
   }
 
+  let isQuantityFavourites = 0;
+  if (favorites.length !== 0) {
+      isQuantityFavourites = favorites.length;
+  }
+
   const inputChangeHandler = ({ target: { value } }) => {
     setSearchValue(value);
   };
@@ -51,6 +56,12 @@ const Header = () => {
     if (!currentUser) dispatch(toggleForm(true));
     else navigate(ROUTES.PROFILE);
   };
+
+const accountHandler = ()=>{
+  if(!currentUser){
+    dispatch(toggleForm(true))
+    dispatch(addTextInAlert('Sign up or login!'))
+  }}
 
   return (
     <div className={styles.header}>
@@ -111,12 +122,17 @@ const Header = () => {
         </div>
 
         <div className={styles.account}>
-          <Link to={ROUTES.FAVOURITES} className={styles.favourites}>
+          <Link to={currentUser?ROUTES.FAVOURITES:'/'}onClick={accountHandler} className={styles.favourites}>
             <svg className={styles['icon-fav']}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#heart`} />
             </svg>
+            {isQuantityFavourites ? (
+              <span className={styles.count}>{isQuantityFavourites}</span>
+            ) : (
+              ''
+            )}
           </Link>
-          <Link to={ROUTES.CART} className={styles.cart}>
+          <Link to={ currentUser?ROUTES.CART:'/'} onClick={accountHandler}className={styles.cart}>
             <svg className={styles['icon-cart']}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
             </svg>

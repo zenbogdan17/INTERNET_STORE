@@ -49,54 +49,62 @@ const Profile = () => {
           <h2 className={styles.title}>Your Profile</h2>
           <p className={styles.subtitle}>You can update your data</p>
           <form className={styles.form} onSubmit={submitHandler}>
-            <div className={styles.group}>
-              <input
-                type="email"
-                placeholder="Your email"
-                name="email"
-                value={values.email}
-                autoComplete="off"
-                onChange={handleChange}
-                required
-              />
+            <div className={styles.inputContainer}>
+              <label>Your email</label>
+              <div className={styles.group}>
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  name="email"
+                  value={values.email}
+                  autoComplete="off"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-
-            <div className={styles.group}>
-              <input
-                type="name"
-                placeholder="Your name"
-                name="name"
-                value={values.name}
-                autoComplete="off"
-                onChange={handleChange}
-                required
-              />
+            <div className={styles.inputContainer}>
+              <label>Your name</label>
+              <div className={styles.group}>
+                <input
+                  type="name"
+                  placeholder="Your name"
+                  name="name"
+                  value={values.name}
+                  autoComplete="off"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-
-            <div className={styles.group}>
-              <input
-                type="password"
-                placeholder="Your password"
-                name="password"
-                value={values.password}
-                autoComplete="off"
-                onChange={handleChange}
-                required
-              />
+            <div className={styles.inputContainer}>
+              <label>Your password</label>
+              <div className={styles.group}>
+                <input
+                  type="password"
+                  placeholder="Your password"
+                  name="password"
+                  value={values.password}
+                  autoComplete="off"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-
-            <div className={styles.group}>
-              <input
-                type="avatar"
-                placeholder="Enter the URL on your avatar"
-                name="avatar"
-                value={values.avatar}
-                autoComplete="off"
-                onChange={handleChange}
-                required
-              />
+            <div className={styles.inputContainer}>
+              <label>Enter the URL on your avatar</label>
+              <div className={styles.group}>
+                <input
+                  type="avatar"
+                  placeholder="Enter the URL on your avatar"
+                  name="avatar"
+                  value={values.avatar}
+                  autoComplete="off"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-
             <button type="submit" className={styles.submit}>
               Update
             </button>

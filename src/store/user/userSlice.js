@@ -34,13 +34,13 @@ export const loginUser = createAsyncThunk(
           Authorization: `Bearer ${res.data.access_token}`,
         },
       });
-
       setLocalStorage(payload);
 
       return login.data;
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
       return thunkAPI.rejectWithValue(e);
+
     }
   }
 );
@@ -89,26 +89,29 @@ const userSlice = createSlice({
       } else {
         newCart.push({ ...payload, quantity: 1 });
       }
-
+      state.textInAler = 'The product added to cart';
       state.cart = newCart;
     },
-    addItemToFavorites: (state, { payload }) => {
+    reducersItemFavorites: (state, { payload }) => {
       let newFavorites = [...state.favorites];
 
       const found = state.favorites.find(({ id }) => id === payload.id);
 
-      console.log(found);
-
       if (found) {
-        state.textInAler = 'The product has already been added';
+        state.favorites = state.favorites.filter(({ id }) => id !== payload.id);
+        state.textInAler = 'The product removed';
       } else {
         newFavorites.push({ ...payload });
         state.textInAler = 'The product added';
         state.favorites = newFavorites;
       }
     },
+    addTextInAlert:(state, {payload})=>{
+      state.textInAler = payload
+    },
     removeItemFromCart: (state, { payload }) => {
       state.cart = state.cart.filter(({ id }) => id !== payload);
+      state.textInAler = 'The product removed from  cart';
     },
     toggleForm: (state, { payload }) => {
       state.showForm = payload;
@@ -123,6 +126,11 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(createUser.pending, (state) => {
       state.isLoading = true;
+    }); 
+     builder.addCase(createUser.rejected, (state, { payload }) => {
+      state.isLoading = false;
+      state.textInAler = '❌ ' +JSON.parse(payload.response.request.response).message[0]
+  
     });
     builder.addCase(createUser.fulfilled, (state, { payload }) => {
       state.currentUser = payload;
@@ -141,6 +149,11 @@ const userSlice = createSlice({
     builder.addCase(updateUser.pending, (state) => {
       state.isLoading = true;
     });
+    builder.addCase(updateUser.rejected, (state, { payload }) => {
+      state.isLoading = false;
+       state.textInAler = '❌ ' +JSON.parse(payload.response.request.response).message[0]
+     
+    })
     builder.addCase(updateUser.fulfilled, (state, { payload }) => {
       state.currentUser = payload;
       state.isLoading = false;
@@ -151,7 +164,8 @@ const userSlice = createSlice({
 
 export const {
   addItemToCart,
-  addItemToFavorites,
+  reducersItemFavorites,
+  addTextInAlert,
   toggleForm,
   changeTypeForm,
   removeItemFromCart,

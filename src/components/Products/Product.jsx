@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styles from '../styles/Product.module.css';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../utils/routes';
-import { useDispatch } from 'react-redux';
-import { addItemToCart, addItemToFavorites } from '../../store/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addItemToCart,
+  reducersItemFavorites,
+} from '../../store/user/userSlice';
 
 const colors = [
   'Red',
@@ -28,6 +31,7 @@ const getRandomColors = (array) => {
 };
 
 const Product = (item) => {
+  const { favorites } = useSelector(({ user }) => user);
   const { images, title, price, description } = item;
 
   const dispatch = useDispatch();
@@ -36,6 +40,11 @@ const Product = (item) => {
   const [isColors, setIsColors] = useState();
   const [currentSize, setCurrentSize] = useState();
   const [currentColor, setCurrentColor] = useState();
+  const [isFavorit, setIsFavorit] = useState(null);
+
+  useEffect(() => {
+    setIsFavorit(Boolean(favorites.find(({ id }) => id === item.id)));
+  }, [favorites, item.id]);
 
   useEffect(() => {
     if (!images.length) {
@@ -58,8 +67,8 @@ const Product = (item) => {
     dispatch(addItemToCart(item));
   };
 
-  const addToFavourite = () => {
-    dispatch(addItemToFavorites(item));
+  const favouriteHandler = () => {
+    dispatch(reducersItemFavorites(item));
   };
 
   return (
@@ -134,9 +143,24 @@ const Product = (item) => {
           >
             Add to cart
           </button>
-          <button className={styles.favourite} onClick={addToFavourite}>
-            Add to favourite
-          </button>
+
+          <div className={styles.favourites}>
+            <svg
+              className={`${styles['icon-fav']} ${
+                isFavorit ? styles.favourit : ''
+              }`}
+              onClick={favouriteHandler}
+            >
+              <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#heart`} />
+            </svg>
+          </div>
+
+          {/* <button
+            className={isFavorit ? styles.favourite : styles.notFavourite}
+            onClick={favouriteHandler}
+          >
+            {isFavorit ? 'Favorite product' : 'Add to favourite'}
+          </button> */}
         </div>
 
         <div className={styles.bottom}>

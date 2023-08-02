@@ -17,7 +17,7 @@ const Cart = () => {
       <h2 className={styles.title}>Your cart</h2>
 
       {!cart.length ? (
-        <div className={styles.empty}>Here is empty</div>
+        <div className={styles.empty}>Cart list is empty</div>
       ) : (
         <>
           <div className={styles.list}>

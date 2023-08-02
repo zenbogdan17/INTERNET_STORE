@@ -11,7 +11,7 @@ const UserSignUp = ({ closeForm }) => {
     email: '',
     password: '',
     avatar:
-      'https://fastly.picsum.photos/id/84/640/640.jpg?hmac=HJesTNezikR8KRkEHGiGMPCKHZKref0NFYQsUjrQbek',
+      'https://e7.pngegg.com/pngimages/348/800/png-clipart-man-wearing-blue-shirt-illustration-computer-icons-avatar-user-login-avatar-blue-child-thumbnail.png',
   });
 
   const handleChange = ({ target: { value, name } }) => {
@@ -70,7 +70,7 @@ const UserSignUp = ({ closeForm }) => {
             required
           />
 
-          <input
+          {/* <input
             type="avatar"
             name="avatar"
             placeholder="Enter the URL on your avatar"
@@ -78,7 +78,7 @@ const UserSignUp = ({ closeForm }) => {
             autoComplete="avatar"
             onChange={handleChange}
             required
-          />
+          /> */}
         </div>
         <button className={styles.submit} type="submit">
           Create an account
